@@ -2,6 +2,7 @@
 A batch data ingestion pipeline using Apache Nifi as ETL and Cassandra for data sink.
 
 ## Architecture
+![Nifi architecture](https://github.com/imminh123/batch-ingestion-pipeline-nifi-cassandra/blob/main/assets/nifi_architecture.png?raw=true)
 
 ## Deployment/installation guide
 
