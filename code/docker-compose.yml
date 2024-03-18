@@ -1,0 +1,70 @@
+version: '3.4'
+x-cassandra: &cassandras
+  CASSANDRA_CLUSTER_NAME: mysimbdp
+  CASSANDRA_SEEDS: cassandra1
+  HEAP_NEWSIZE: 1M
+  MAX_HEAP_SIZE: 512M
+  CASSANDRA_ENDPOINT_SNITCH: GossipingPropertyFileSnitch
+    
+x-expose: &exposes
+    - "7000" 
+    - "7001" 
+    - "7199"
+    - "9042" 
+    - "9142" 
+    - "9160" 
+
+services: 
+  cassandra1:
+    image: cassandra:latest
+    hostname: cassandra1
+    environment: 
+      <<: *cassandras
+      CASSANDRA_DC: helsinki   
+      CASSANDRA_RACK: RACK1 
+    expose: *exposes
+    ports: 
+      - "9042:9042"
+
+  cassandra2:
+    image: cassandra:latest
+    hostname: cassandra2
+    environment: 
+      <<: *cassandras
+      CASSANDRA_DC: helsinki   
+      CASSANDRA_RACK: RACK2
+    expose: *exposes      
+    ports: 
+      - "9043:9042"
+    restart: always
+    depends_on: 
+      - cassandra1
+    
+
+  cassandra3:
+    image: cassandra:latest
+    hostname: cassandra3
+    environment: 
+      <<: *cassandras
+      CASSANDRA_DC: tokyo 
+      CASSANDRA_RACK: RACK1
+    expose: *exposes
+    restart: always
+    depends_on: 
+      - cassandra1    
+    ports: 
+      - "9044:9042"
+
+  cassandra4:
+    image: cassandra:latest
+    hostname: cassandra4
+    environment: 
+      <<: *cassandras
+      CASSANDRA_DC: tokyo 
+      CASSANDRA_RACK: RACK2
+    expose: *exposes
+    restart: always
+    depends_on: 
+      - cassandra1    
+    ports: 
+      - "9045:9042"
