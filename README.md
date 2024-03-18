@@ -8,7 +8,8 @@ A batch data ingestion pipeline using Apache Nifi as ETL and Cassandra for data 
 
 ## Interactions, Architecture and Infrastructures
 ![Apache Nifi Architecture](https://i.ibb.co/Tvng14S/Pasted-image-20240215235735.png)
-Using Apache Nifi processor, there are 3 main component groups, which responsible for 3 sequential tasks of Extract - Transform - Load respectively.
+
+#### Using Apache Nifi processor, there are 3 main component groups, which responsible for 3 sequential tasks of Extract - Transform - Load respectively.
 - **Extract (ListFile, FetchFile)**
 Data (CSV, TSV files) will be fetched from an origin directory, read, and delivered as *flow file* to the next stage of the pipeline.
 - **Transform**
